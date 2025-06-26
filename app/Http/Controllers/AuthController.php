@@ -31,12 +31,23 @@ class AuthController extends Controller
         ]);
 
         if(Auth::attempt($fields,$request->remember)){
-            return redirect()->intended();
+            return redirect()->intended('dashboard');
         }else{
             return back()->withErrors([
                 'failed' => 'The provided credentials do not match our records.'
             ]);
         }
+    }
+
+
+    public function logout(Request $request){
+        Auth::logout();
+
+        $request->session()->invalidate();
+        // regenerate crsf token
+        $request->session()->regenerateToken();
+        return redirect('/');
+
     }
 
 }
