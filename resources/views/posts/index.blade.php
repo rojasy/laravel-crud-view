@@ -20,4 +20,8 @@
 
     </div>
 
+    <div>
+        {{ $posts->links() }}
+    </div>
+
 </x-layout>
